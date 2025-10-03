@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualization Methods</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+            height: 100vh;
+        }
+        .navbar {
+            width: 100%;
+            height: 50px;
+            background-color: #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #555;
+        }
+        .navbar .email {
+            margin-left: auto;
+        }
+
+        .main {
+            display: flex;
+            height: calc(100% - 50px);
+            width: 100%;
+        }
+        .sidebar {
+            width: 17%;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            height: 110vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+        }
+        .title {
+            color: #555;
+            padding: 0 20px;
+            padding-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .sidebar a {
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: #555;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+
+        .sidebar a {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-text {
+            padding: 8%;
+            font-size: 1rem;
+            line-height: 1.1rem;
+        }
+
+        .sidebar a:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .selected {
+            background-color: #ddd; 
+            font-weight: bold;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #ffffff;
+        }
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+    </style>
+
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.19/auth0-spa-js.production.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+    <div class="navbar">
+        <a href="#">Home</a>
+        <a href="#" id="login" style="margin-left:1200px;">Login</a>
+        <a href="#" id="logout" style="display:none;">Logout</a>
+        <span id="user-info" class="email"></span>
+    </div>
+
+    <div class="main">
+        <div class="sidebar">
+            <h3 class="title">Select a Method</h3>
+            <hr style="width: 96%; margin-left: 2%; margin-right: 2%;">
+
+            <a href="map.html" target="content-frame" id="method1">1. MindMap<span class="tooltip-text">A visual diagram that organizes information around a central concept.</span></a>
+
+            <a href="flowchart.html" target="content-frame" id="method2">2. Flowchart<span class="tooltip-text">A diagram that represents a process, showing steps as boxes and connecting them with arrows.</span></a>
+            
+            <a href="sequence.html" target="content-frame" id="method3">3. Visualize Sequence<span class="tooltip-text">A diagram that visualizes a sequence of actions or events.</span></a>
+
+            <a href="er.html" target="content-frame" id="method4">4. Entity Relationship<span class="tooltip-text">A data modeling technique that creates a graphical representation of the relationships between entities.</span></a>
+
+            <a style="opacity: 0.4;" target="content-frame">4. Entity Relationship</a>
+
+            <a href="5whys.html" target="content-frame" id="method5">5. Five WHYs<span class="tooltip-text">A method that explores cause-and-effect relationships to understand a problem's root cause.</span></a>
+
+            <a href="stakeholderMapping.html" target="content-frame">6. Stakeholder Mapping<span class="tooltip-text">A visual method for identifying and analyzing stakeholders.</span></a>
+
+            <a href="starburst.html" target="content-frame">7. Starburst<span class="tooltip-text">A brainstorming technique that involves asking and answering questions about a central topic.</span></a>
+
+            <a href="raciMatrix.html" target="content-frame">8. RACI Matrix<span class="tooltip-text">A responsibility assignment matrix for delineating roles and responsibilities in a project.</span></a>
+            
+            <a href="pestal.html" target="content-frame">9. PESTAL<span class="tooltip-text">An analysis framework used to evaluate external factors that impact an industry or organization.</span></a>
+            
+            <a href="riskAnalysis.html" target="content-frame">10. RISK Analysis<span class="tooltip-text">A process of identifying and assessing risks to mitigate their impact.</span></a>
+            
+            <a href="porterFiveForces.html" target="content-frame">11. Porter's Five Forces<span class="tooltip-text">A model for analyzing the competitive forces within an industry.</span></a>
+            
+            <a href="theoryOfChange.html" target="content-frame">12. Theory Of Change<span class="tooltip-text">A methodology for planning, implementing, and evaluating social change.</span></a>
+            
+            <a href="moscowAnalysis.html" target="content-frame">13. MoSCoW Analysis<span class="tooltip-text">A prioritization technique used to reach a common understanding with stakeholders.</span></a>
+            
+            <a href="analogousResearch.html" target="content-frame">14. Analogous Research<span class="tooltip-text">A technique to draw lessons from similar existing solutions.</span></a>
+            
+            <a href="problemReframing.html" target="content-frame">15. Problem Reframing<span class="tooltip-text">A technique to view a problem from different perspectives to uncover its true nature.</span></a>
+            
+            <a href="scamper.html" target="content-frame">16. Scamper<span class="tooltip-text">A creative thinking process for generating ideas by applying different lenses to existing concepts.</span></a>
+            
+            <a href="scenarioPlanning.html" target="content-frame">17. Scenario Planning<span class="tooltip-text">A strategic method for envisioning potential futures and preparing responses to various possibilities.</span></a>
+            
+            <a href="howMightWe.html" target="content-frame">18. How Might We<span class="tooltip-text">A framework used to create opportunities for innovation by rephrasing challenges as open-ended questions.</span></a>
+
+            <a href="reverseIdeation.html" target="content-frame">19. Reverse Ideation<span class="tooltip-text">A creative problem-solving technique that involves thinking of ways to make a problem worse and then reversing those negative ideas to discover innovative solutions.</span></a>
+            
+            
+
+        </div>
+
+        <div class="content">
+            <iframe name="content-frame" src="map.html"></iframe>
+        </div>
+    </div>
+
+    
+    <script>
+        // (async () => {
+        //     try {
+        //         const auth0 = await createAuth0Client({
+        //             domain: "dev-7t5vad7mradtmd6k.us.auth0.com",  // Ensure this is your correct Auth0 domain
+        //             client_id: "3f2mpN5AGJg1mPYRkOiYfN0THraK3e5N",   // Ensure this matches your Regular Web App Client ID
+        //             audience: "https://justmethods.com/",   // Ensure this matches your API Identifier
+        //             useRefreshTokens: true,
+        //             cacheLocation: 'localstorage'
+        //         });
+
+        //         console.log('Auth0 Initialized with Regular Web App Client');
+
+        //         const isAuthenticated = await auth0.isAuthenticated();
+        //         console.log(`Is authenticated: ${isAuthenticated}`);
+
+        //         const updateUI = async () => {
+        //             const isAuthenticated = await auth0.isAuthenticated();
+        //             document.getElementById("login").style.display = isAuthenticated ? "none" : "block";
+        //             document.getElementById("logout").style.display = isAuthenticated ? "block" : "none";
+        //             if (isAuthenticated) {
+        //                 const user = await auth0.getUser();
+        //                 document.getElementById("user-info").textContent = `Welcome, ${user.name}`;
+        //             } else {
+        //                 document.getElementById("user-info").textContent = '';
+        //             }
+        //         };
+
+        //         if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+        //             console.log('Handling redirect callback');
+        //             await auth0.handleRedirectCallback();
+        //             window.history.replaceState({}, document.title, "/");
+        //             console.log('Redirect callback handled');
+        //         }
+
+        //         await updateUI();
+
+        //         if (!isAuthenticated) {
+        //             console.log('User not authenticated, redirecting to login');
+        //             await auth0.loginWithRedirect({
+        //                 redirect_uri: window.location.origin,
+        //                 scope: "read:methods write:methods" 
+        //             });
+        //         }
+
+        //         document.getElementById("login").addEventListener("click", async () => {
+        //             console.log('Login clicked');
+        //             await auth0.loginWithRedirect({
+        //                 redirect_uri: window.location.origin,
+        //                 scope: "read:methods write:methods"
+        //             });
+        //         });
+
+        //         document.getElementById("logout").addEventListener("click", () => {
+        //             console.log('Logout clicked');
+        //             auth0.logout({
+        //                 returnTo: window.location.origin
+        //             });
+        //         });
+
+        //     } catch (error) {
+        //         console.log('Error during authentication process:', error);
+        //     }
+        // })();
+
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    </script>
+
+</body>
+</html>

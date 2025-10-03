@@ -1,0 +1,342 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowchart</title>
+
+
+    <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+  
+        body {
+          font-family: 'Roboto', sans-serif;
+          background-color: #f4f6f8;
+          color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+        }
+  
+        .container {
+            /* margin-left: 120px;  */
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            /*max-width: 1600px;*/
+            /* padding: 20px; */
+            /* padding-left: 20px; */
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+        }
+
+        pre.mermaid {
+            /* background-color: #f0f0f0; */
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 100%;
+            overflow: auto;
+        }
+  
+  
+        .sidebar {
+          display: flex;
+          flex-direction: column;
+          width: 250px;
+          padding-left: 20px;
+          background-color: #fafafa;
+          color: black;
+          transition: width 0.3s ease;
+          overflow: hidden;
+          position: relative;
+        }
+
+        #title {
+          color: #555;
+          padding-bottom: 15px;
+          font-size: 1.1rem;
+        }
+
+        .definition {
+          color: #555;
+          padding-right: 6%;
+          padding-top: 16%;
+          font-size: 0.9rem;
+          padding-left: 3%;
+          line-height: 1.1rem;
+        }
+
+        .collapsed {
+          width: 40px;
+        }
+  
+        .collapsed .sidebar {
+          width: 40px;
+          padding: 10px;
+        }
+  
+        .collapsed .sidebar-content {
+          display: none;
+        }
+  
+        .collapse-icon {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer;
+          color: #d9d9d9;
+          font-size: 1.5rem;
+          transition: transform 0.3s ease;
+        }
+  
+        .collapse-icon::before {
+          content: '\25B6';
+          display: inline-block;
+        }
+  
+        .collapsed .collapse-icon::before {
+          content: '\25C0';
+        }
+  
+        textarea {
+          width: 90%;
+          height: 100px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          font-size: 1rem;
+          margin-bottom: 20px;
+          resize: none;
+        }
+  
+        .input-box {
+          text-align: center;
+  
+          flex-grow: 1; 
+        }
+  
+        .topic {
+            text-align: left;
+        }
+
+        .input-box label {
+            font-size: 1rem;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+  
+        button {
+            width: 90%;
+            padding: 10px 20px;
+            background-color: #000000;
+            color: #fafafa;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+  
+        button:hover {
+          color: #fafafa;
+          background-color: #727272;
+        }
+  
+        .mermaid-container {
+          flex-grow: 1;
+          background-color: white;
+          margin-left: 20px;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+          /* overflow: hidden; */
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+  
+        .progress-bar-container {
+          width: 100%;
+          background-color: #e0e0e0;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          display: none;
+        }
+  
+        .progress-bar {
+          width: 0%;
+          height: 20px;
+          background-color: #000000;
+          border-radius: 5px;
+          transition: width 0.3s ease;
+        }
+  
+        .flowchart {
+            width: 100%;
+            height: 100vh;
+        }
+  
+        @media (max-width: 768px) {
+          h1 {
+            font-size: 2rem;
+          }
+  
+          .flowchart {
+            height: 70vh;
+          }
+        }
+      </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.min.js"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/src/svg-pan-zoom.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+
+
+
+</head>
+<body>
+
+    <div class="container">      
+
+        <div class="sidebar">
+        &nbsp;
+          <div class="sidebar-content">
+            <h3 id="title">Flowchart</h3>
+            <div class="input-box topic">
+            <label>Topic</label>
+            </div>
+            <textarea placeholder="Enter your prompt here"></textarea>
+            <button>Go</button>
+            <div class="definition">
+              A diagram that represents a process, showing steps as boxes and connecting them with arrows.
+            </div>
+          </div>
+          <div class="collapse-icon"></div>
+        </div>
+  
+        <div class="mermaid-container">
+          <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+          </div>
+          <pre class="flowchart">
+
+          </pre>
+        </div>
+      </div>
+
+
+
+    
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+
+
+    <script type="module">
+        
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.2.0/+esm';
+
+        mermaid.initialize({ startOnLoad: true });
+
+        import svgPanZoom from 'https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/+esm'
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const collapseIcon = document.querySelector('.collapse-icon');
+            const textarea = document.querySelector('textarea');
+            const button = document.querySelector('button');
+            const Container = document.querySelector('.flowchart');
+            
+            // const mermaidContainer = document.querySelector('.mermaid');
+            const mermaidContainer = document.querySelector('.mermaid-container pre.mermaid');
+
+
+            const progressBar = document.querySelector('.progress-bar');
+            const progressBarContainer = document.querySelector('.progress-bar-container');
+            const sidebar = document.querySelector('.sidebar');
+
+
+            collapseIcon.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+
+            });
+
+            button.addEventListener('click', async () => {
+              progressBarContainer.style.display = 'block'; 
+              progressBar.style.width = '0%';
+              const prompt = textarea.value;
+              
+              let progress = 0;
+
+              const interval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = `${progress}%`;
+
+                if (progress >= 90) clearInterval(interval);
+              }, 300);
+
+              const response = await fetch('/generate-flowchart', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ prompt }),
+              });
+
+
+              const responseData = await response.json();
+              const mermaidCode = responseData.flowchart;
+              // console.log("Generated Mermaid Flowchart here:", mermaidCode);
+
+
+              Container.innerHTML = ''; 
+              Container.innerHTML = `<pre class="mermaid">${mermaidCode}</pre>`;
+
+              mermaid.init(undefined, mermaidContainer);
+
+              const checkForSVG = setInterval(() => {
+                const svgElement = Container.querySelector('svg');
+                if (svgElement) {
+                  clearInterval(checkForSVG);
+
+                  svgPanZoom(svgElement, {
+                    zoomEnabled: true,
+                    controlIconsEnabled: true,
+                    fit: true,
+                    center: true
+                  });
+
+                  // console.log("Pan and zoom applied");
+                }
+              }, 100); 
+
+              progressBar.style.width = '100%';
+              setTimeout(() => {
+                progressBarContainer.style.display = 'none';
+              }, 500);
+
+            });
+
+
+
+          
+
+          
+
+        });
+
+        
+    </script>
+    
+
+</body>
+</html>

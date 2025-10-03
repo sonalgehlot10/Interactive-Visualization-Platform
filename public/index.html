@@ -1,0 +1,685 @@
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualization Methods</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+            height: 100vh;
+        }
+        .navbar {
+            width: 100%;
+            height: 50px;
+            background-color: #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #555;
+        }
+        .navbar .email {
+            margin-left: auto;
+        }
+
+        .main {
+            display: flex;
+            height: calc(100% - 50px);
+            width: 100%;
+        }
+        .sidebar {
+            width: 17%;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            height: 110vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+        }
+        .title {
+            color: #555;
+            padding: 0 20px;
+            padding-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .sidebar a {
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: #555;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+
+        .sidebar a {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-text {
+            padding: 8%;
+            font-size: 1rem;
+            line-height: 1.1rem;
+        }
+
+        .sidebar a:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .selected {
+            background-color: #ddd; 
+            font-weight: bold;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #ffffff;
+        }
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+    </style>
+
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.19/auth0-spa-js.production.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+    <div class="navbar">
+        <a href="#">Home</a>
+        <a href="#" id="login" style="margin-left:1200px;">Login</a>
+        <a href="#" id="logout" style="display:none;">Logout</a>
+        <span id="user-info" class="email"></span>
+    </div>
+
+    <div class="main">
+        <div class="sidebar">
+            <h3 class="title">Select a Method</h3>
+            <hr style="width: 96%; margin-left: 2%; margin-right: 2%;">
+
+            <a href="map.html" target="content-frame" id="method1">1. MindMap<span class="tooltip-text">A visual diagram that organizes information around a central concept.</span></a>
+
+            <a href="flowchart.html" target="content-frame" id="method2">2. Flowchart<span class="tooltip-text">A diagram that represents a process, showing steps as boxes and connecting them with arrows.</span></a>
+            
+            <a href="sequence.html" target="content-frame" id="method3">3. Visualize Sequence<span class="tooltip-text">A diagram that visualizes a sequence of actions or events.</span></a>
+
+            <a href="er.html" target="content-frame" id="method4">4. Entity Relationship<span class="tooltip-text">A data modeling technique that creates a graphical representation of the relationships between entities.</span></a>
+
+            <a style="opacity: 0.4;" target="content-frame">4. Entity Relationship</a>
+
+            <a href="5whys.html" target="content-frame" id="method5">5. Five WHYs<span class="tooltip-text">A method that explores cause-and-effect relationships to understand a problem's root cause.</span></a>
+
+            <a href="stakeholderMapping.html" target="content-frame">6. Stakeholder Mapping<span class="tooltip-text">A visual method for identifying and analyzing stakeholders.</span></a>
+
+            <a href="starburst.html" target="content-frame">7. Starburst<span class="tooltip-text">A brainstorming technique that involves asking and answering questions about a central topic.</span></a>
+
+            <a href="raciMatrix.html" target="content-frame">8. RACI Matrix<span class="tooltip-text">A responsibility assignment matrix for delineating roles and responsibilities in a project.</span></a>
+            
+            <a href="pestal.html" target="content-frame">9. PESTAL<span class="tooltip-text">An analysis framework used to evaluate external factors that impact an industry or organization.</span></a>
+            
+            <a href="riskAnalysis.html" target="content-frame">10. RISK Analysis<span class="tooltip-text">A process of identifying and assessing risks to mitigate their impact.</span></a>
+            
+            <a href="porterFiveForces.html" target="content-frame">11. Porter's Five Forces<span class="tooltip-text">A model for analyzing the competitive forces within an industry.</span></a>
+            
+            <a href="theoryOfChange.html" target="content-frame">12. Theory Of Change<span class="tooltip-text">A methodology for planning, implementing, and evaluating social change.</span></a>
+            
+            <a href="moscowAnalysis.html" target="content-frame">13. MoSCoW Analysis<span class="tooltip-text">A prioritization technique used to reach a common understanding with stakeholders.</span></a>
+            
+            <a href="analogousResearch.html" target="content-frame">14. Analogous Research<span class="tooltip-text">A technique to draw lessons from similar existing solutions.</span></a>
+            
+            <a href="problemReframing.html" target="content-frame">15. Problem Reframing<span class="tooltip-text">A technique to view a problem from different perspectives to uncover its true nature.</span></a>
+            
+            <a href="scamper.html" target="content-frame">16. Scamper<span class="tooltip-text">A creative thinking process for generating ideas by applying different lenses to existing concepts.</span></a>
+            
+            <a href="scenarioPlanning.html" target="content-frame">17. Scenario Planning<span class="tooltip-text">A strategic method for envisioning potential futures and preparing responses to various possibilities.</span></a>
+            
+            <a href="howMightWe.html" target="content-frame">18. How Might We<span class="tooltip-text">A framework used to create opportunities for innovation by rephrasing challenges as open-ended questions.</span></a>
+
+            <a href="reverseIdeation.html" target="content-frame">19. Reverse Ideation<span class="tooltip-text">A creative problem-solving technique that involves thinking of ways to make a problem worse and then reversing those negative ideas to discover innovative solutions.</span></a>
+            
+            
+
+        </div>
+
+        <div class="content">
+            <iframe name="content-frame" src="map.html"></iframe>
+        </div>
+    </div>
+
+    
+    <script>
+        (async () => {
+            try {
+                const auth0 = await createAuth0Client({
+                    domain: "dev-7t5vad7mradtmd6k.us.auth0.com",  // Ensure this is your correct Auth0 domain
+                    client_id: "3f2mpN5AGJg1mPYRkOiYfN0THraK3e5N",   // Ensure this matches your Regular Web App Client ID
+                    audience: "https://justmethods.com/",   // Ensure this matches your API Identifier
+                    useRefreshTokens: true,
+                    cacheLocation: 'localstorage'
+                });
+
+                console.log('Auth0 Initialized with Regular Web App Client');
+
+                const isAuthenticated = await auth0.isAuthenticated();
+                console.log(`Is authenticated: ${isAuthenticated}`);
+
+                const updateUI = async () => {
+                    const isAuthenticated = await auth0.isAuthenticated();
+                    document.getElementById("login").style.display = isAuthenticated ? "none" : "block";
+                    document.getElementById("logout").style.display = isAuthenticated ? "block" : "none";
+                    if (isAuthenticated) {
+                        const user = await auth0.getUser();
+                        document.getElementById("user-info").textContent = `Welcome, ${user.name}`;
+                    } else {
+                        document.getElementById("user-info").textContent = '';
+                    }
+                };
+
+                if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+                    console.log('Handling redirect callback');
+                    await auth0.handleRedirectCallback();
+                    window.history.replaceState({}, document.title, "/");
+                    console.log('Redirect callback handled');
+                }
+
+                await updateUI();
+
+                if (!isAuthenticated) {
+                    console.log('User not authenticated, redirecting to login');
+                    await auth0.loginWithRedirect({
+                        redirect_uri: window.location.origin,
+                        scope: "read:methods write:methods" 
+                    });
+                }
+
+                document.getElementById("login").addEventListener("click", async () => {
+                    console.log('Login clicked');
+                    await auth0.loginWithRedirect({
+                        redirect_uri: window.location.origin,
+                        scope: "read:methods write:methods"
+                    });
+                });
+
+                document.getElementById("logout").addEventListener("click", () => {
+                    console.log('Logout clicked');
+                    auth0.logout({
+                        returnTo: window.location.origin
+                    });
+                });
+
+            } catch (error) {
+                console.log('Error during authentication process:', error);
+            }
+        })();
+
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    </script>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Star Services</title>
+        <link href="./css/style.min.css" rel="stylesheet" />
+        <!-- <style>
+            *,:after,:before{-webkit-box-sizing:border-box;box-sizing:border-box}html{font-size:100%}body{background-color:#f5f5f5;font-family:"Switzer",sans-serif;font-size:1rem;line-height:1.5;margin:0;padding:0;overflow-x:hidden}.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:0.5rem;line-height:1.2}.h1,h1{font-size:calc(1.375rem + 1.5vw)}.h2,h2{font-size:calc(1.325rem + 0.9vw)}.h3,h3{font-size:calc(1.3rem + 0.6vw)}.h4,h4{font-size:calc(1.275rem + 0.3vw)}.h5,h5{font-size:1.25rem}.h6,h6{font-size:1rem}@media screen and (min-width:1200px){.h1,h1{font-size:2.5rem}.h2,h2{font-size:2rem}.h3,h3{font-size:1.75rem}.h4,h4{font-size:1.5rem}}@font-face{font-family:"Switzer";src:url("../webfonts/switzer/Switzer-Medium.woff2") format("woff2"),url("../webfonts/switzer/Switzer-Medium.woff") format("woff");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Switzer";src:url("../webfonts/switzer/Switzer-Semibold.woff2") format("woff2"),url("../webfonts/switzer/Switzer-Semibold.woff") format("woff");font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:"Switzer";src:url("../webfonts/switzer/Switzer-Regular.woff2") format("woff2"),url("../webfonts/switzer/Switzer-Regular.woff") format("woff");font-weight:normal;font-style:normal;font-display:swap}.d-flex{display:-webkit-box;display:-ms-flexbox;display:flex}.flex-wrap{-ms-flex-wrap:wrap;flex-wrap:wrap}.container,.container-fluid{margin:0 auto;padding:0 20px}.container{max-width:1320px}.container-fluid{max-width:1470px}.anchor-overlay{font-size:0;inset:0;position:absolute;z-index:1}.search-form form{height:50px;position:relative}.search-form input[type=text]{border:0.5px solid #d5d5d5;-webkit-box-shadow:none;box-shadow:none;height:100%;display:block;font-size:1rem;padding:0 60px 0 15px;width:100%}.search-form input[type=text]::-webkit-input-placeholder{color:#8D8D8D;opacity:1}.search-form input[type=text]::-moz-placeholder{color:#8D8D8D;opacity:1}.search-form input[type=text]:-ms-input-placeholder{color:#8D8D8D;opacity:1}.search-form input[type=text]::-ms-input-placeholder{color:#8D8D8D;opacity:1}.search-form input[type=text]::placeholder{color:#8D8D8D;opacity:1}.search-form input[type=text]:focus{-webkit-box-shadow:0 0 9px 1px rgba(0,0,0,0.06);box-shadow:0 0 9px 1px rgba(0,0,0,0.06);outline:none}.search-form input[type=submit]{background-color:#002664;background-image:url(../images/magnify-glass.svg);background-position:center;background-repeat:no-repeat;border:0;border-radius:3px;bottom:3px;cursor:pointer;font-size:0;position:absolute;-webkit-transition:300ms background-color linear;transition:300ms background-color linear;right:3px;top:3px;width:50px}.search-form input[type=submit]:hover{background-color:rgba(0,38,100,0.85)}.breadcrumbs{color:#868484;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;list-style-type:none;margin-top:0;padding-left:0}.breadcrumbs li:not(:last-of-type):after{content:"/";color:#575656;margin:0 5px}.breadcrumbs a{color:#575656;text-decoration:none}.breadcrumbs a:hover{color:#000000}.text-content{color:#3B3939}.text-content h2,.text-content h3,.text-content h4,.text-content h5,.text-content h6{color:#010101;font-weight:500}@media screen and (min-width:576px){.search-form:not(.documentation-sidebar__form) form{height:68px}.search-form:not(.documentation-sidebar__form) input[type=text]{padding:0 75px 0 22px}.search-form:not(.documentation-sidebar__form) input[type=submit]{bottom:6px;width:58px;right:9px;top:6px}}.site-header{margin:0 0 30px;padding:20px 0}@media screen and (min-width:576px){.site-header{margin:0 0 9px;padding:45px 0}}.search-helper{text-align:center}.search-helper__inner{max-width:690px;margin:0 auto}.search-helper .search-form{margin:20px 0 0}@media screen and (min-width:576px){.search-helper .search-form{margin:32px 0 0}}@media screen and (min-width:992px){.search-helper h2{font-size:44px}}.documentation-links{margin:30px 0}.documentation-links__inner>.row{display:-ms-grid;display:grid;-ms-grid-columns:1fr;grid-template-columns:1fr;grid-row-gap:20px}.documentation-links__single{background-color:#ffffff;border-radius:15px;-webkit-box-shadow:0 0 6px rgba(0,0,0,0.05);box-shadow:0 0 6px rgba(0,0,0,0.05);display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;height:100%;padding:45px 32px;position:relative;-webkit-transition:300ms -webkit-box-shadow linear;transition:300ms -webkit-box-shadow linear;transition:300ms box-shadow linear;transition:300ms box-shadow linear,300ms -webkit-box-shadow linear}.documentation-links__single:hover{-webkit-box-shadow:0 16px 64px -16px rgba(0,0,0,0.2);box-shadow:0 16px 64px -16px rgba(0,0,0,0.2)}.documentation-links__icon{margin:0 0 33px}.documentation-links__content>h2{font-size:22px}.documentation-links__content>p{color:#888888;margin-right:-10px}.documentation-links__content>p:last-of-type{margin-bottom:0}@media screen and (min-width:576px){.documentation-links{margin:60px 0}.documentation-links__inner>.row{-ms-grid-columns:1fr 38px 1fr;grid-template-columns:1fr 1fr;grid-gap:38px}.documentation-links__icon{margin:0 0 53px}.documentation-links__content>h2{margin:0 0 16px}}@media screen and (min-width:992px){.documentation-links{margin:80px 0 60px}.documentation-links__inner>.row{-ms-grid-columns:1fr 38px 1fr 38px 1fr;grid-template-columns:1fr 1fr 1fr}}@media screen and (min-width:1200px){.documentation-links__inner>.row{-ms-grid-columns:1fr 38px 1fr 38px 1fr 38px 1fr;grid-template-columns:1fr 1fr 1fr 1fr}}.documentation-sidebar{background-color:#ffffff;bottom:0;left:0;min-height:100vh;padding:20px;max-width:327px;overflow-y:auto;position:fixed;scrollbar-width:none;-ms-overflow-style:none;top:0;-webkit-transform:translateX(-327px);transform:translateX(-327px);-webkit-transition:300ms -webkit-transform linear;transition:300ms -webkit-transform linear;transition:300ms transform linear;transition:300ms transform linear,300ms -webkit-transform linear;width:100%}.documentation-sidebar::-webkit-scrollbar{width:0}.documentation-sidebar::-webkit-scrollbar-thumb{background-color:transparent}.documentation-sidebar__logo{margin-bottom:50px}.documentation-sidebar__toggle{background-color:transparent;border:0;cursor:pointer;display:inline-block;position:fixed;-webkit-transform:translate(5px,10px) rotate(0);transform:translate(5px,10px) rotate(0);-webkit-transition:300ms -webkit-transform linear;transition:300ms -webkit-transform linear;transition:300ms transform linear;transition:300ms transform linear,300ms -webkit-transform linear}.documentation-sidebar__menu{margin-top:50px;padding-left:20px}.documentation-sidebar__menu ul{padding-left:0;list-style-type:none}.documentation-sidebar__menu>ul{font-weight:500;font-size:18px}.documentation-sidebar__menu>ul ul{border-left:1.5px solid #B2B2B2;color:#868484;font-size:16px;font-weight:normal;margin-top:30px;padding-left:18px}.documentation-sidebar__menu .menu-item{margin-bottom:30px;position:relative}.documentation-sidebar__menu .menu-item:hover>a{color:#E42313}.documentation-sidebar__menu .current-menu-item:before{border-left:2px solid #E42313;content:"";position:absolute;top:0;left:-20px;bottom:0}.documentation-sidebar__menu .current-menu-item>a{color:#E42313}.documentation-sidebar__menu a{color:inherit;text-decoration:none;-webkit-transition:300ms color linear;transition:300ms color linear}.documentation-sidebar.is-open{-webkit-transform:translateX(0);transform:translateX(0)}.documentation-sidebar.is-open~.documentation-sidebar__toggle{-webkit-transform:translate(275px,20px) rotate(-180deg);transform:translate(275px,20px) rotate(-180deg)}@media screen and (min-width:1200px){.documentation-sidebar{-webkit-transform:translateX(0);transform:translateX(0);padding:45px 20px}.documentation-sidebar__logo{margin-bottom:70px;padding-left:30px}.documentation-sidebar__toggle{display:none}.documentation-sidebar__menu{margin-top:90px}}.documentation-content{padding:50px 20px 20px 20px;max-width:1140px;width:100%}@media screen and (min-width:1200px){.documentation-content{margin-left:327px;padding:100px;width:calc(100% - 327px)}}
+        </style> -->
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container-fluid">
+                <div class="site-header__inner">
+                    <table border="0" cellpadding="1" cellspacing="1" style="width:96%;">
+                        <tbody>
+                            <tr>
+                                <td width="80%">
+                                    <img alt="Star Services Logo" src="./images/logo.png" style="width: 123px; height: 44px;"/>
+                                </td>
+                                <!-- <td align="right" width="20%">Sign In</td> -->
+                                <td align="right" width="20%">
+                                    <a target="_blank" href="methods.html" style="text-decoration: none; color: inherit;">View Methods</a>
+                                    <span id="user-info"></span>
+                                    <a href="#" id="signin" style="display:none;">Sign In</a>
+                                    <a href="#" id="logout" style="display:none;">Logout</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div align="right"></div>
+            </div>
+        </header>
+
+        <main class="site-content">
+            <section class="search-helper">
+                <div class="container">
+                    <div class="search-helper__inner">
+                        <h2 class="h1">Welcome to the<br />
+                        Methods Playgound</h2>
+                    </div>
+                </div>
+            </section>
+
+            <section class="documentation-links">
+                <div class="container">
+                    <div class="documentation-links__inner">
+                        <div class="row">
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="map.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <figure class="documentation-links__icon">
+                                            <img alt="File Pencil Icon" height="28" src="./images/mindmap.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                        <h2>Mind Maps</h2>
+    
+                                        <p>A visual diagram that organizes information around a central concept.</p>
+                                        </div>
+                                    </div>
+
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="flowchart.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon">
+                                            <img alt="File Stack Icon" height="28" src="./images/starburst.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Flowchart</h2> 
+                                            <p>A diagram that represents a process, showing steps as boxes and connecting them with arrows.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="sequence.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Grid Lines Icon" height="28" src="./images/grid.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Visualize Sequence</h2>
+    
+                                            <p>A diagram that visualizes a sequence of actions or events.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+
+                            <!-- <div class="col">
+                                <a style="text-decoration: none; color: inherit" href="er.html" target="_blank">
+                                    <div class="documentation-links__single">
+
+                                        <figure class="documentation-links__icon"><img alt="Grid Lines Icon" height="28" src="./images/grid.svg" width="28" /></figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Entity Relationship</h2>
+    
+                                            <p>BLANK</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                            </div> -->
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="5whys.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Wrench Icon" height="28" src="./images/moscow.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Five WHYs</h2>
+    
+                                            <p>A method that explores cause-and-effect relationships to understand a problem's root cause.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                               
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="stakeholderMapping.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/porter.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <!-- <h2>Porter&#39;s Five Forces</h2> -->
+                                             <h2>Stakeholder Mapping</h2>
+    
+                                            <p>A visual method for identifying and analyzing stakeholders.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="starburst.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Starburst</h2>
+    
+                                            <p>A brainstorming technique that involves asking and answering questions about a central topic.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="raciMatrix.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>RACI Matrix</h2>
+    
+                                            <p>A responsibility assignment matrix for delineating roles and responsibilities in a project.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="pestal.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>PESTAL</h2>
+    
+                                            <p>An analysis framework used to evaluate external factors that impact an industry or organization.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="riskAnalysis.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>RISK Analysis</h2>
+    
+                                            <p>A process of identifying and assessing risks to mitigate their impact.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="porterFiveForces.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Porter&#39;s Five Forces</h2>
+    
+                                            <p>A model for analyzing the competitive forces within an industry.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="theoryOfChange.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Theory Of Change</h2>
+    
+                                            <p>A methodology for planning, implementing, and evaluating social change.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="moscowAnalysis.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>MoSCoW Analysis</h2>
+    
+                                            <p>A prioritization technique used to reach a common understanding with stakeholders.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a>   -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="analogousResearch.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Analogous Research</h2>
+    
+                                            <p>A technique to draw lessons from similar existing solutions.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="problemReframing.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Problem Reframing</h2>
+    
+                                            <p>A technique to view a problem from different perspectives to uncover its true nature.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="scamper.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Download Icon" height="28" src="./images/download.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Scamper</h2>
+    
+                                            <p>A creative thinking process for generating ideas by applying different lenses to existing concepts.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="scenarioPlanning.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Checklist Icon" height="28" src="./images/checklist.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Scenario Planning</h2>
+    
+                                            <p>A strategic method for envisioning potential futures and preparing responses to various possibilities.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="howMightWe.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="Branch Type Icon" height="28" src="./images/subaccounts.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>How Might We</h2>
+    
+                                            <p>A framework used to create opportunities for innovation by rephrasing challenges as open-ended questions.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+
+                            <div class="col">
+                                <!-- <a style="text-decoration: none; color: inherit" href="reverseIdeation.html" target="_blank"> -->
+                                    <div class="documentation-links__single">
+                                        <!-- <a class="anchor-overlay">null</a> -->
+
+                                        <figure class="documentation-links__icon"><img alt="File Exclamation Icon" height="28" src="./images/not-graded.svg" width="28" />
+                                        </figure>
+    
+                                        <div class="documentation-links__content">
+                                            <h2>Reverse Ideation</h2>
+    
+                                            <p>A creative problem-solving technique that involves thinking of ways to make a problem worse and then reversing those negative ideas to discover innovative solutions.</p>
+                                        </div>
+                                    </div>
+                                <!-- </a> -->
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+<script>
+    "use strict";!function(){var e=document.querySelector(".documentation-page");if(e){var t=e.querySelector(".documentation-sidebar"),n=e.querySelector(".documentation-sidebar__toggle");n&&n.addEventListener("click",(function(e){e.preventDefault(),t.classList.toggle("is-open")}))}}();
+
+</script></body>
+</html>
