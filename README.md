@@ -26,12 +26,18 @@ It also served as a way for me to practice **structuring interactive UIs** with 
 - Modular design for easy addition of new methods or visualizations  
 - Fully responsive and mobile-friendly layout  
 
-<img width="1920" height="936" alt="image" src="https://github.com/user-attachments/assets/d8e8f21a-a950-4c16-b98a-f9f3fb038e33" />
-
-
+---
 
 ## What I Learned  
 - How to design intuitive UIs using **HTML, CSS, and vanilla JavaScript**  
-- How to organize and modularize content for scalability in static sites  
+- How to organize and modularize content for scalability in static sites
+
+
+<img width="1920" height="936" alt="image" src="https://github.com/user-attachments/assets/d8e8f21a-a950-4c16-b98a-f9f3fb038e33" />
+<img width="1420" height="537" alt="image" src="https://github.com/user-attachments/assets/3340e1e5-9565-4cec-adb1-6f9675ef64b3" />
+
+
+
+
 
 
